@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: catalogue
   namespace: roboshop
-  lebels:
+  labels:
     project: roboshop
     tier: backend
     component: catalogue
