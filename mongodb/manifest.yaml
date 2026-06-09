@@ -13,9 +13,9 @@ spec:
   selector:
   # using these labels replica set selects the pod
     matchLabels:
-    project: roboshop
-    tier: database
-    component: mongodb
+      project: roboshop
+      tier: database
+      component: mongodb
 # This is pod definition. pod is subset of replica set
   template:
     metadata:
