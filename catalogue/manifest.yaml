@@ -43,6 +43,30 @@ spec:
       containers:
       - name: catalogue
         image: vinod1618/catalogue:1.0.0
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "150m"
+            memory: "150Mi"
+        #readiness probe
+
+        readinessProbe:
+          httpGet:
+              path: /health
+              port: 8080
+          failureThreshold: 2
+          peroidSeconds: 10
+          initialDelaySeconds: 5
+        #liveness probe
+
+        livenessProbe:
+          tcpSocket:
+              port: 8080
+          failureThreshold: 2
+          periodSeconds: 10
+
         envFrom:
         - configMapRef:
             name: catalogue
