@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user
+  namespace: roboshop
+  labels:
+    project: roboshop
+    tier: backend
+    component: user
+
+data:
+  REDIS_URL: 'redis://redis:6379'
+  MONGO_URL: "mongodb://mongodb:27017/users"
+  MONGO: "true"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  namespace: roboshop
+  # these lables are deployment lables
+  labels:
+    project: roboshop
+    tier: backend
+    component: user
+spec:
+  replicas: 1
+  selector:
+  # using these labels replica set selects the pod
+    matchLabels:
+      project: roboshop
+      tier: backend
+      component: user
+# This is pod definition. pod is subset of replica set
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        tier: backend
+        component: user
+    spec:
+      containers:
+      - name: user
+        image: vinod1618/user:1.6.0
+        imagePullPolicy: Always  # this is safe to pull evrytime, there may be images with same version rebuilt and pushes
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "150m"
+            memory: "150Mi"
+        #readiness probe
+
+        readinessProbe:
+          httpGet:
+              path: /health
+              port: 8080
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 15
+        #liveness probe
+
+        livenessProbe:
+          tcpSocket:
+              port: 8080
+          failureThreshold: 2
+          periodSeconds: 10
+
+        envFrom:
+        - configMapRef:
+            name: user
+
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: user
+  namespace: roboshop
+  labels:
+    project: roboshop
+    tier: backend
+    component: user
+spec:
+  selector:
+  #lables are used as selectors
+    project: roboshop
+    tier: backend
+    component: user
+  ports:
+    - protocol: TCP
+      port: 8080 # service port
+      targetPort: 8080 # container port
