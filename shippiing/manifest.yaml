@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: vinod1618/shipping:1.6.0
+        image: vinod1618/shipping:1.0.0
         imagePullPolicy: Always  # this is safe to pull evrytime, there may be images with same version rebuilt and pushes
         resources:
           requests:
