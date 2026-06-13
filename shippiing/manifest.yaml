@@ -147,7 +147,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: joindevops/shipping:1.4.0
+        image: vinod1618/shipping:1.6.0
         imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:
