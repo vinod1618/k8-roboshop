@@ -67,8 +67,9 @@ spec:
           httpGet:
             path: /health
             port: 8080
-          failureThreshold: 20
-          periodSeconds: 10
+          initialDelaySeconds: 60   # wait 60s before first check
+          periodSeconds: 10         # check every 10s
+          failureThreshold: 10
 
         #liveness probe
 
