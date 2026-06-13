@@ -46,11 +46,11 @@ spec:
         imagePullPolicy: Always  # this is safe to pull evrytime, there may be images with same version rebuilt and pushes
         resources:
           requests:
-            cpu: "100m"
-            memory: "128Mi"
+            cpu: "200m"
+            memory: "256Mi"
           limits:
-            cpu: "150m"
-            memory: "150Mi"
+            cpu: "200m"
+            memory: "256Mi"
         #readiness probe
 
         readinessProbe:
