@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: joindevops/shipping:1.6.0
+        image: joindevops/shipping:1.4.0
         imagePullPolicy: Always  # this is safe to pull evrytime, there may be images with same version rebuilt and pushes
         resources:
           requests:
