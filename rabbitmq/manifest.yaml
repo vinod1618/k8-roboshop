@@ -45,7 +45,7 @@ spec:
         image: rabbitmq:3
         envFrom:
         - configMapRef:
-            name: rabbbitmq
+            name: rabbitmq
 
 ---
 
