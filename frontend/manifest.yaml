@@ -132,8 +132,10 @@ spec:
           failureThreshold: 2
           periodSeconds: 10
         volumeMounts:
+        #by default it mounts and thinks as directory 
         - name: nginx-config
           mountPath: "/etc/nginx/nginx.conf"
+          subPath: nginx.conf
           readOnly: true
 
 ---
